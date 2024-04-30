@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# script name: docker.sh
+# script name: push.sh
 # description: Docker load, tag and push tar files
 # author: m.rajaonson
 # date: 2024-04-23
