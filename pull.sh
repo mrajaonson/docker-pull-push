@@ -18,3 +18,29 @@ else
     echo "Error: Docker login failed"
     exit 1
 fi
+
+# Check if no parameter is provided
+if [ $# -eq 0 ]; then
+    echo "No parameters provided. Exiting."
+    exit 1
+fi
+
+# Iterate through all parameters
+while [ $# -gt 0 ]; do
+    param=$1
+    name="$REGISTRY/$param"
+    echo "$name"
+    docker search "$name" > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        printf "\nDocker image %s does not exist. Skipping." "$name"
+    else
+        printf "\nPulling %s ...\n" "$name"
+        docker pull "$name"
+        printf "\nSaving %s.tar ...\n" "$param"
+        docker save "$name" > "$param.tar"
+        printf "\nClean up %s ...\n" "$name"
+        docker rmi -f "$name"
+    fi
+    shift
+done
+
