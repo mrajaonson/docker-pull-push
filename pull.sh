@@ -9,7 +9,7 @@
 source .env
 
 # Docker login command
-echo $TOKEN | docker login -u $USER --password-stdin $REGISTRY
+echo $TOKEN_PULL | docker login -u $USER_PULL --password-stdin $REGISTRY_PULL
 
 # Check if Docker login was successful
 if [ $? -eq 0 ]; then
@@ -28,7 +28,7 @@ fi
 # Iterate through all parameters
 while [ $# -gt 0 ]; do
     param=$1
-    name="$REGISTRY/$param"
+    name="$REGISTRY_PULL/$param"
     echo "$name"
     docker search "$name" > /dev/null 2>&1
     if [ $? -ne 0 ]; then

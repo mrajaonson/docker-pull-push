@@ -9,7 +9,7 @@
 source .env
 
 # Docker login command
-echo $TOKEN | docker login -u $USER --password-stdin $REGISTRY
+echo $TOKEN_PUSH | docker login -u $USER_PUSH --password-stdin $REGISTRY_PUSH
 
 # Check if Docker login was successful
 if [ $? -eq 0 ]; then
@@ -28,14 +28,14 @@ files=$(find *.tar)
 for file in $files; do
     # Extract the image name from the tar file
     image_name=$(basename "$file" .tar)
-    echo "$image_name"   
+    echo "$image_name"
 
     # Load the docker image from the tar file
     image_id=$(docker load -i "$file" | awk '{print $NF}')
     echo "$image_id"
 
     # Docker image tag
-    image_tag=$REGISTRY/$image_name:$version
+    image_tag=$REGISTRY_PUSH/$image_name:$version
 
     # Tag the docker image with version and image ID
     docker tag "$image_id" "$image_tag"
