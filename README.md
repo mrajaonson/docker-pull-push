@@ -2,7 +2,7 @@
 Docker script
 
 ## Use case
-* The `pull.sh` script retrieves docker images and saves them as `.tar` files. Takes images name as a parameters, separated by a space.
+* The `pull.sh` script retrieves docker images and saves them as `.tar` files. Takes images name as parameters, separated by a space.
 * These `.tar` files can then be used in an isolated environment.
 * The `push.sh` script loads all `.tar` files in the current directory and pushes them to a docker registry.
 
